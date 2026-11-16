@@ -36,10 +36,19 @@ The API listens on `http://127.0.0.1:5000`. Swagger documentation is available a
 
 | Method | Path | Purpose |
 | --- | --- | --- |
-| `GET` | `/api/profile` | Read the local learning profile (creates defaults on first access) |
-| `PUT` | `/api/profile` | Update the local learning profile |
+| `GET` | `/api/profile/` | Read the local learning profile (creates defaults on first access) |
+| `PUT` | `/api/profile/` | Update the local learning profile |
+| `GET` | `/api/integrations/openai/` | Check whether OpenAI is connected |
+| `POST` | `/api/integrations/openai/` | Validate and connect an OpenAI API key |
+| `DELETE` | `/api/integrations/openai/` | Disconnect and remove the saved key |
 | `GET` | `/api/health/` | Check API and database availability |
 
 The profile accepts `display_name`, `cefr_level` (`A1` through `C2`),
 `native_language`, and `learning_goal`. No credentials or authorization headers
 are required.
+
+The OpenAI key is sent to Flask over the local API, checked against OpenAI, and
+stored encrypted in `backend/instance/`. The encryption key is generated locally
+and has owner-only file permissions. Neither file is committed to Git. Preserve
+both files in `backend/instance/` if you need the saved connection after restoring
+the app's files. OpenAI API usage may be billed by OpenAI.

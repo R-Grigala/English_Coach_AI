@@ -1,0 +1,99 @@
+# English Coach AI — სამუშაოების სია
+
+სტატუსები: [x] შესრულებულია · [~] ნაწილობრივ შესრულებულია / შესამოწმებელია · [ ] გასაკეთებელია · [—] გამორიცხულია გადაწყვეტილებით
+
+## პროდუქტის შეთანხმებული ფარგლები
+
+- პლატფორმა პირადი და ერთმომხმარებლიანია.
+- რეგისტრაცია, login, users/user ownership და JWT ამ ვერსიისთვის საჭირო არ არის. PDF-ში მოცემული Auth ამოცანები განზრახ გამორიცხულია.
+- სამიზნე: ინგლისურის გაუმჯობესება A2-დან B2-მდე ყოველდღიური, პროფესიული და აკადემიური პრაქტიკით.
+- შენიშვნა API key-ზე: PDF ითვალისწინებს key-ის backend environment-ში შენახვას. საიტიდან key-ის შეყვანის მოთხოვნისთვის დაემატა backend-ზე დაშიფრული ლოკალური შენახვა (`backend/instance/`); production-მდე ეს განსხვავება უნდა გადაიხედოს.
+
+## Phase 1 — Project Initialization & Infrastructure
+
+- [x] TASK 01 — Repository-ის საწყისი სტრუქტურა, Git, `.gitignore` და README.
+- [x] INF-01 — Backend და frontend საქაღალდეების შექმნა; `docker/`, `nginx/`, `backend/migrations/` და `backend/tests/` დამატება.
+- [x] INF-02 — Flask app factory, RESTX API, SQLAlchemy და Flask-Migrate საწყისი კონფიგურაცია.
+- [x] INF-03 — React + Vite frontend-ის ინიციალიზაცია.
+- [x] INF-04 — Tailwind CSS-ის კონფიგურაცია.
+- [x] INF-05 — Backend Dockerfile.
+- [x] INF-06 — Frontend Dockerfile.
+- [x] INF-07 — PostgreSQL Compose სერვისი და persistent volume; host პორტი `5433`.
+- [x] INF-08 — Redis Compose სერვისი და persistent volume.
+- [x] INF-09 — `docker-compose.yml`, სერვისების დამოკიდებულებები და health check-ები.
+- [x] INF-10 — `.env.example`; root და backend `.env` Git-იდან იგნორირებულია.
+- [x] INF-11 — Docker bridge network და PostgreSQL/Redis/frontend volumes.
+- [~] INF-12 — გარემოს გაშვების შემოწმება. მიმდინარე backend image-ში `cryptography` არ არის; აპის დასაკავშირებლად backend image თავიდან უნდა აიგოს და ყველა სერვისის health check ხელახლა შემოწმდეს.
+
+## Phase 2 — Core Backend
+
+- [~] მონაცემთა ბაზის მოდელი — ამჟამად არსებობს ერთიანი `LearningProfile`; გაკვეთილების, სიტყვების, სავარჯიშოების, საუბრებისა და პროგრესის მოდელები დასამატებელია.
+- [ ] Flask-Migrate-ის საწყისი migration-ების შექმნა და PostgreSQL-ზე `upgrade`-ის გავლა.
+- [x] RESTX namespaces-ის საწყისი ნაწილი — health, profile და OpenAI integration.
+- [~] პროფილის `GET/PUT` API — დაწერილია; migration-ისა და რეალურ DB-ზე შემოწმება სჭირდება.
+- [ ] Learning Plans, Lessons, Vocabulary, Grammar, Exercises, Conversations და Progress CRUD API-ები.
+- [ ] Pagination, ერთიანი error response, request validation, rate limiting და request size limits.
+- [x] Swagger/OpenAPI გვერდი `/api/docs`.
+- [—] რეგისტრაცია, login, JWT და user ownership — არ კეთდება, რადგან პროდუქტი პირადია და ერთი მომხმარებლისთვისაა.
+
+## Phase 3 — Learning System
+
+- [ ] საერთო Vocabulary ბაზა: სიტყვა, ქართული თარგმანი, გამოთქმა, მაგალითები და კატეგორიები.
+- [ ] პირადი Vocabulary პროგრესი: ნასწავლი/რთული სიტყვები და Favorites.
+- [ ] Spaced Repetition ალგორითმი, review ისტორია და შემდეგი გამეორების თარიღი.
+- [ ] გაკვეთილების შენახვა, სექციები, ისტორია და დღიური/კვირეული სასწავლო გეგმა.
+- [ ] გრამატიკის თემები, სავარჯიშოები და კითხვები.
+- [ ] პასუხების მიღება, შეფასება და შედეგების შენახვა.
+- [ ] პროგრესის ისტორია, streak, retention და CEFR დონის დინამიკა.
+
+## Phase 4 — AI Integration
+
+- [~] საიტის ზედა მარჯვენა კუთხიდან OpenAI API key-ის შეყვანა, კავშირის შემოწმება და disconnect.
+- [~] API key backend-ზე დაშიფრულად ინახება; ამოქმედებისთვის საჭიროა backend image-ში `cryptography`-ის დაყენება და კავშირის რეალური შემოწმება.
+- [ ] OpenAI Responses API-ის საერთო backend client/service და კონფიგურირებადი model.
+- [ ] Lesson Generator — დონე, მიზნები და წინა შედეგები → სტრუქტურირებული გაკვეთილი.
+- [ ] Vocabulary Generator — თემისა და CEFR დონის შესაბამისი სიტყვები ქართულად.
+- [ ] Grammar Assistant და Exercise Generator.
+- [ ] Answer Evaluator — შეცდომები, ახსნა და ქულის მინიჭება.
+- [ ] Conversation Coach — ტექსტური საუბარი, roleplay და უკუკავშირი.
+- [ ] AI-ის JSON/structured პასუხების schema validation და უსაფრთხო error handling.
+- [ ] Token usage, latency და სავარაუდო ხარჯის აღრიცხვა.
+
+## Phase 5 — Frontend
+
+- [x] React + Vite საწყისი გვერდი და backend კავშირის სტატუსი.
+- [x] OpenAI კავშირის ღილაკი და API key-ის ფორმა.
+- [ ] პერსონალური Dashboard და დღიური გეგმა.
+- [ ] Lessons: შექმნა, ნახვა და ისტორია.
+- [ ] Vocabulary: სია, ბარათები, Favorites და review რეჟიმი.
+- [ ] Grammar, სავარჯიშოები და Quiz UI.
+- [ ] ტექსტური AI Chat/Conversation UI.
+- [ ] Progress და სტატისტიკის გვერდი.
+- [ ] Loading/empty/error მდგომარეობები და მობილურზე ადაპტაცია.
+
+## Phase 6 — Advanced Features
+
+- [ ] Celery worker და Celery Beat-ის დამატება.
+- [ ] Redis-ით დაგეგმილი გაკვეთილები, შეხსენებები და პერიოდული პროგრესის ანალიზი.
+- [ ] Speech-to-Text, Text-to-Speech, pronunciation და listening სავარჯიშოები.
+- [ ] ხმოვანი საუბარი.
+
+## Phase 7 — Production & Operations
+
+- [ ] Nginx reverse proxy, production frontend build და HTTPS.
+- [ ] საიდუმლოებების production secret management; API key-ის შენახვის არქიტექტურის გადახედვა.
+- [ ] Logging, health/ready checks და monitoring.
+- [ ] PostgreSQL backup/restore პროცედურა.
+- [ ] API security review, rate limits და error handling.
+- [ ] Production deployment-ის დოკუმენტაცია.
+
+## MVP — პირველი გამოსაყენებელი ვერსია
+
+- [ ] პერსონალური პროფილი და Dashboard.
+- [ ] AI-ით გენერირებული, შენახული გაკვეთილი.
+- [ ] 10–15 ახალი სიტყვა ქართული თარგმანითა და მაგალითებით.
+- [ ] გრამატიკული სავარჯიშო და Vocabulary Quiz.
+- [ ] ტექსტური AI Conversation.
+- [ ] ტესტის შედეგებისა და პროგრესის ნახვა.
+
+ხმოვანი ფუნქციები, გაფართოებული ანალიტიკა და ავტომატური შეტყობინებები MVP-ის შემდეგ ეტაპზე რჩება.

@@ -1,6 +1,29 @@
 # English_Coach_AI
 Personal AI-powered English Learning Platform
 
+## Repository structure
+
+```text
+english_coach/
+├── backend/
+│   ├── app/                 Flask application, API, models and configuration
+│   ├── migrations/          Database migration scripts
+│   ├── tests/               Backend tests
+│   ├── config.py            Project-level configuration entry point
+│   ├── requirements.txt
+│   └── run.py               Flask application entry point
+├── frontend/                React + Vite application
+├── docker/                  Shared Docker notes and future tooling
+├── nginx/                   Reserved for the production reverse proxy
+├── .env.example             Local environment variable template
+├── .gitignore
+├── docker-compose.yml
+└── README.md
+```
+
+Git is initialized for this repository. Copy `.env.example` to `.env` for local
+configuration; `.env` files and secrets are excluded by `.gitignore`.
+
 ## Backend
 
 The Flask API lives in [`backend/`](./backend/). See [`backend/README.md`](./backend/README.md)

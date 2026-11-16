@@ -13,6 +13,7 @@ def create_app(config_object=Config):
     migrate.init_app(app, db)
     from app import models  # noqa: F401  Register models with SQLAlchemy metadata.
     from app.api.health import api as health_namespace
+    from app.api.integrations import api as integrations_namespace
     from app.api.profile import api as profile_namespace
 
     api = Api(
@@ -24,6 +25,7 @@ def create_app(config_object=Config):
         prefix="/api",
     )
     api.add_namespace(health_namespace)
+    api.add_namespace(integrations_namespace)
     api.add_namespace(profile_namespace)
 
     return app
