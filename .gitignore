@@ -1,0 +1,11 @@
+.env
+.env.*
+!.env.example
+node_modules/
+frontend/dist/
+backend/.venv/
+backend/instance/
+backend/migrations/versions/__pycache__/
+__pycache__/
+*.py[cod]
+
