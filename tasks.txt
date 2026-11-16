@@ -23,28 +23,28 @@
 - [x] INF-09 — `docker-compose.yml`, სერვისების დამოკიდებულებები და health check-ები.
 - [x] INF-10 — `.env.example`; root და backend `.env` Git-იდან იგნორირებულია.
 - [x] INF-11 — Docker bridge network და PostgreSQL/Redis/frontend volumes.
-- [~] INF-12 — გარემოს გაშვების შემოწმება. მიმდინარე backend image-ში `cryptography` არ არის; აპის დასაკავშირებლად backend image თავიდან უნდა აიგოს და ყველა სერვისის health check ხელახლა შემოწმდეს.
+- [~] INF-12 — გარემოს გაშვების შემოწმება. backend image თავიდან უნდა აიგოს (`cryptography`, `Flask-Limiter` და Redis Python client-ისთვის) და ყველა სერვისის health check ხელახლა შემოწმდეს.
 
 ## Phase 2 — Core Backend
 
-- [~] მონაცემთა ბაზის მოდელი — ამჟამად არსებობს ერთიანი `LearningProfile`; გაკვეთილების, სიტყვების, სავარჯიშოების, საუბრებისა და პროგრესის მოდელები დასამატებელია.
-- [ ] Flask-Migrate-ის საწყისი migration-ების შექმნა და PostgreSQL-ზე `upgrade`-ის გავლა.
+- [x] მონაცემთა ბაზის მოდელები — ერთმომხმარებლიანი პროფილი, გეგმები/გაკვეთილები/სექციები, საერთო ლექსიკონი და კატეგორიები, პირადი სიტყვების პროგრესი და review-ები, გრამატიკა/სავარჯიშოები/შედეგები, საუბრები და პროგრესის ისტორია.
+- [x] Flask-Migrate-ის საწყისი migration და Alembic scaffold; PostgreSQL-ზე მიმდინარე და head ვერსიები ემთხვევა (`0001_core_learning`).
 - [x] RESTX namespaces-ის საწყისი ნაწილი — health, profile და OpenAI integration.
-- [~] პროფილის `GET/PUT` API — დაწერილია; migration-ისა და რეალურ DB-ზე შემოწმება სჭირდება.
-- [ ] Learning Plans, Lessons, Vocabulary, Grammar, Exercises, Conversations და Progress CRUD API-ები.
-- [ ] Pagination, ერთიანი error response, request validation, rate limiting და request size limits.
+- [x] პროფილის `GET/PUT` API — რეალურ DB-ზე შემოწმებულია; CEFR ვალიდაციაც მოწმდება.
+- [x] Learning Plans, Lessons, Vocabulary, Grammar, Exercises, Conversations და Progress CRUD API-ები (`/api/learning/...`).
+- [x] CRUD pagination, ერთიანი API error response, ველების ვალიდაცია, Redis-ზე rate limiting და request size limit.
 - [x] Swagger/OpenAPI გვერდი `/api/docs`.
 - [—] რეგისტრაცია, login, JWT და user ownership — არ კეთდება, რადგან პროდუქტი პირადია და ერთი მომხმარებლისთვისაა.
 
 ## Phase 3 — Learning System
 
-- [ ] საერთო Vocabulary ბაზა: სიტყვა, ქართული თარგმანი, გამოთქმა, მაგალითები და კატეგორიები.
-- [ ] პირადი Vocabulary პროგრესი: ნასწავლი/რთული სიტყვები და Favorites.
-- [ ] Spaced Repetition ალგორითმი, review ისტორია და შემდეგი გამეორების თარიღი.
-- [ ] გაკვეთილების შენახვა, სექციები, ისტორია და დღიური/კვირეული სასწავლო გეგმა.
-- [ ] გრამატიკის თემები, სავარჯიშოები და კითხვები.
-- [ ] პასუხების მიღება, შეფასება და შედეგების შენახვა.
-- [ ] პროგრესის ისტორია, streak, retention და CEFR დონის დინამიკა.
+- [x] საერთო Vocabulary ბაზა: ქართული თარგმანი, გამოთქმა, მაგალითები, კატეგორიები და ძებნა/ფილტრები.
+- [x] პირადი Vocabulary პროგრესი: `new/learning/learned/difficult` სტატუსები, Favorites და ფილტრაცია.
+- [x] Spaced Repetition (SM-2): due queue, 0–5 შეფასება, review ისტორია და შემდეგი review თარიღი.
+- [x] გაკვეთილების შენახვა და სექციები; დღიური/კვირეული სია, დასრულება და ისტორია.
+- [x] გრამატიკის თემები, სავარჯიშოები და კითხვები.
+- [x] სავარჯიშოს პასუხების მიღება, backend-ზე შეფასება, feedback და შედეგის შენახვა.
+- [x] პროგრესის ისტორია და შეჯამება: streak, ბოლო 7 დღის აქტივობა, 30-დღიანი retention და CEFR ჩანაწერები.
 
 ## Phase 4 — AI Integration
 
