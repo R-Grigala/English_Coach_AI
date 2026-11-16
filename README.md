@@ -46,3 +46,29 @@ the persisted database and Redis data.
 
 The frontend proxies `/api` requests to Flask inside the Compose network. The
 backend uses PostgreSQL and Redis service names for container-to-container access.
+
+## AI learning endpoints
+
+Connect an OpenAI API key from the frontend's connection control. The backend
+stores it encrypted in its ignored `backend/instance/` directory. AI requests use
+the Responses API with `store: false`; generated lessons, vocabulary, grammar,
+exercises and conversation turns are saved to the local PostgreSQL database.
+
+The default model is `gpt-5.4-mini`. Set `OPENAI_MODEL` in `.env` to change it.
+Usage logs include model, response ID, input/output tokens and latency. Estimated
+USD cost is included only after setting `OPENAI_INPUT_PRICE_PER_MILLION` and
+`OPENAI_OUTPUT_PRICE_PER_MILLION` to current prices for the configured model.
+
+| Method | Endpoint | Purpose |
+| --- | --- | --- |
+| POST | `/api/ai/lessons/generate` | Generate and save a lesson (`topic`, optional `goal`, `cefr_level`, `plan_id`) |
+| POST | `/api/ai/vocabulary/generate` | Generate and save Georgian-translated vocabulary (`topic`, optional `count`, `cefr_level`) |
+| POST | `/api/ai/grammar/explain` | Generate and save an explanation (`topic`, optional `cefr_level`) |
+| POST | `/api/ai/exercises/generate` | Generate and save multiple-choice questions (`topic`, optional `count`, `cefr_level`, `grammar_topic_id`, `lesson_id`) |
+| POST | `/api/ai/answers/evaluate` | Evaluate a response (`prompt`, `answer`, optional `expected_answer`, `cefr_level`) |
+| POST | `/api/ai/conversations` | Start a roleplay (`scenario`, `message`, optional `cefr_level`) |
+| POST | `/api/ai/conversations/{id}/messages` | Continue an active roleplay (`message`) |
+
+Structured provider output is schema-checked before it is saved. Provider errors
+are mapped to concise API errors; prompts, learner answers and API keys are not
+written to usage logs.

@@ -48,16 +48,16 @@
 
 ## Phase 4 — AI Integration
 
-- [~] საიტის ზედა მარჯვენა კუთხიდან OpenAI API key-ის შეყვანა, კავშირის შემოწმება და disconnect.
-- [~] API key backend-ზე დაშიფრულად ინახება; ამოქმედებისთვის საჭიროა backend image-ში `cryptography`-ის დაყენება და კავშირის რეალური შემოწმება.
-- [ ] OpenAI Responses API-ის საერთო backend client/service და კონფიგურირებადი model.
-- [ ] Lesson Generator — დონე, მიზნები და წინა შედეგები → სტრუქტურირებული გაკვეთილი.
-- [ ] Vocabulary Generator — თემისა და CEFR დონის შესაბამისი სიტყვები ქართულად.
-- [ ] Grammar Assistant და Exercise Generator.
-- [ ] Answer Evaluator — შეცდომები, ახსნა და ქულის მინიჭება.
-- [ ] Conversation Coach — ტექსტური საუბარი, roleplay და უკუკავშირი.
-- [ ] AI-ის JSON/structured პასუხების schema validation და უსაფრთხო error handling.
-- [ ] Token usage, latency და სავარაუდო ხარჯის აღრიცხვა.
+- [x] საიტის ზედა მარჯვენა კუთხიდან OpenAI API key-ის შეყვანა, კავშირის შემოწმება და disconnect.
+- [x] API key backend-ზე დაშიფრულად ინახება; კავშირის სტატუსი დადასტურებულია.
+- [x] OpenAI Responses API-ის საერთო backend client/service და `.env`-ით კონფიგურირებადი model.
+- [x] Lesson Generator — დონე, მიზანი და ბოლო შედეგები → გაკვეთილი DB-ში შენახვით.
+- [x] Vocabulary Generator — თემისა და CEFR დონის სიტყვები ქართულად, learner vocabulary-ში შენახვით.
+- [x] Grammar Assistant და Exercise Generator — სტრუქტურირებული შედეგები DB-ში ინახება.
+- [x] Answer Evaluator — ქულა, შეცდომები, შესწორებები და განმარტება.
+- [x] Conversation Coach — ტექსტური roleplay, ისტორიის კონტექსტი და უკუკავშირი.
+- [x] AI-ის JSON Schema validation, business validation და უსაფრთხო error handling.
+- [x] Token usage და latency ილოგება; სავარაუდო ღირებულება გამოითვლება მხოლოდ `.env`-ში მიმდინარე ფასების მითითებისას.
 
 ## Phase 5 — Frontend
 

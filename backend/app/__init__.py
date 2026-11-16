@@ -23,6 +23,7 @@ def create_app(config_object=Config):
     from app import models  # noqa: F401  Register models with SQLAlchemy metadata.
     from app.api.health import api as health_namespace
     from app.api.integrations import api as integrations_namespace
+    from app.api.ai import api as ai_namespace
     from app.api.crud import api as learning_namespace
     from app.api.learning_system import api as learning_system_namespace
     from app.api.profile import api as profile_namespace
@@ -37,6 +38,7 @@ def create_app(config_object=Config):
     )
     api.add_namespace(health_namespace)
     api.add_namespace(integrations_namespace)
+    api.add_namespace(ai_namespace)
     api.add_namespace(profile_namespace)
     api.add_namespace(learning_namespace)
     api.add_namespace(learning_system_namespace)

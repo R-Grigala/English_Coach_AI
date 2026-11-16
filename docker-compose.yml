@@ -9,6 +9,9 @@ services:
       FLASK_DEBUG: "1"
       DATABASE_URL: ${DATABASE_URL:-postgresql+psycopg://${POSTGRES_USER:-english_coach}:${POSTGRES_PASSWORD:-change-this-local-password}@db:5432/${POSTGRES_DB:-english_coach}}
       REDIS_URL: ${REDIS_URL:-redis://redis:6379/0}
+      OPENAI_MODEL: ${OPENAI_MODEL:-gpt-5.4-mini}
+      OPENAI_INPUT_PRICE_PER_MILLION: ${OPENAI_INPUT_PRICE_PER_MILLION:-0}
+      OPENAI_OUTPUT_PRICE_PER_MILLION: ${OPENAI_OUTPUT_PRICE_PER_MILLION:-0}
     command: flask run --host=0.0.0.0 --port=5000
     ports:
       - "127.0.0.1:${BACKEND_PORT:-5000}:5000"
